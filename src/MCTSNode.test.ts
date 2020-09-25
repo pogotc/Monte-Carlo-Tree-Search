@@ -126,13 +126,13 @@ describe('MCTSNode', () => {
             expect(rootNode.wins).toEqual(1);
         });
 
-        test('Will not increase the win count if the node did not win', () => {
+        test('Will decrease the win count if the node did not win', () => {
             const gameState = new TestGameState([0, 0, 0], 1);
             const rootNode = new MCTSNode(gameState, null, []);
 
             rootNode.backpropagate(2);
             expect(rootNode.visits).toEqual(1);
-            expect(rootNode.wins).toEqual(0);
+            expect(rootNode.wins).toEqual(-1);
         });
 
         test('Can propagate the result back up the tree', () => {
@@ -155,13 +155,13 @@ describe('MCTSNode', () => {
             expect(rootNode.wins).toEqual(1);
 
             expect(childNode.visits).toEqual(1);
-            expect(childNode.wins).toEqual(0);
+            expect(childNode.wins).toEqual(-1);
 
             expect(grandChildNode.visits).toEqual(1);
             expect(grandChildNode.wins).toEqual(1);
 
             expect(finalNode.visits).toEqual(1);
-            expect(finalNode.wins).toEqual(0);
+            expect(finalNode.wins).toEqual(-1);
 
             // Second propagation
             finalNode.backpropagate(1);
@@ -170,28 +170,28 @@ describe('MCTSNode', () => {
             expect(rootNode.wins).toEqual(2);
 
             expect(childNode.visits).toEqual(2);
-            expect(childNode.wins).toEqual(0);
+            expect(childNode.wins).toEqual(-2);
 
             expect(grandChildNode.visits).toEqual(2);
             expect(grandChildNode.wins).toEqual(2);
 
             expect(finalNode.visits).toEqual(2);
-            expect(finalNode.wins).toEqual(0);
+            expect(finalNode.wins).toEqual(-2);
 
             // Third propagation - player 2 wins this time
             finalNode.backpropagate(2);
 
             expect(rootNode.visits).toEqual(3);
-            expect(rootNode.wins).toEqual(2);
+            expect(rootNode.wins).toEqual(1);
 
             expect(childNode.visits).toEqual(3);
-            expect(childNode.wins).toEqual(1);
+            expect(childNode.wins).toEqual(-1);
 
             expect(grandChildNode.visits).toEqual(3);
-            expect(grandChildNode.wins).toEqual(2);
+            expect(grandChildNode.wins).toEqual(1);
 
             expect(finalNode.visits).toEqual(3);
-            expect(finalNode.wins).toEqual(1);
+            expect(finalNode.wins).toEqual(-1);
         });
     });
 });

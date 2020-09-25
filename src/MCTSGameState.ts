@@ -8,9 +8,9 @@ export type Action = {
 export default abstract class MCTSGameState {
     #board: Array<any>;
     #player: number;
-    constructor(board: Array<any>, player: number) {
+    constructor(board: Array<any>, player?: number) {
         this.#board = board;
-        this.#player = player;
+        this.#player = player || 1;
     }
     getBoard(): Array<any> {
         return this.#board;
@@ -22,6 +22,7 @@ export default abstract class MCTSGameState {
     setPlayer(player: number): void {
         this.#player = player;
     }
+    abstract getNextPlayer(): number;
     abstract getPossibleMoves(): Array<Move>;
     abstract applyAction(action: Action): MCTSGameState;
     abstract getStatus(): any;

@@ -18,6 +18,10 @@ export class TestGameState extends MCTSGameState {
     isEndOfGame(): boolean {
         return false;
     }
+
+    getNextPlayer(): number {
+        return 3 - this.getPlayer();
+    }
 }
 
 export class ThreeInARowGameState extends MCTSGameState {
@@ -66,5 +70,9 @@ export class ThreeInARowGameState extends MCTSGameState {
 
     isEndOfGame(): boolean {
         return this.getStatus() !== 'IN_PROGRESS';
+    }
+
+    getNextPlayer(): number {
+        return 3 - this.getPlayer();
     }
 }

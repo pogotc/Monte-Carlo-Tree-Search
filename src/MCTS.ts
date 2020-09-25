@@ -2,15 +2,11 @@ import MCTSGameState from './MCTSGameState';
 import MCTSNode from './MCTSNode';
 
 export default class MCTS {
-    findNextMove(state: MCTSGameState, player?: number): any {
+    findNextMove(state: MCTSGameState, player: number): any {
         const rootNode = new MCTSNode(state);
-
-        if (!player) {
-            player = 1;
-        }
         rootNode.state.setPlayer(3 - player);
 
-        for (let iteration = 0; iteration < 100; iteration++) {
+        for (let iteration = 0; iteration < 200; iteration++) {
             // Select
             let nodeToExplore = rootNode.selectMostPromisingNode();
             // Expand
@@ -23,8 +19,6 @@ export default class MCTS {
             // Backpropagate
             nodeToExplore.backpropagate(result);
         }
-        console.log(rootNode);
-
         return rootNode.getMostVisitedChild().action;
     }
 }

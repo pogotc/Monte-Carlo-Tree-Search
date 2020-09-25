@@ -1,6 +1,9 @@
 import MCTSGameState, { Move, Action } from '../../MCTSGameState';
 
 export default class TicTacToeGameState extends MCTSGameState {
+    getNextPlayer(): number {
+        return 3 - this.getPlayer();
+    }
     getPossibleMoves(): Array<Move> {
         const moves = [];
         this.getBoard().forEach((value, position) => {

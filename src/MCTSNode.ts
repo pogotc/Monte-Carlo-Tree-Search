@@ -49,7 +49,8 @@ export default class MCTSNode {
         }
 
         const actionToPerform = this.actions[this.children.length];
-        const newState = this.state.applyAction({ move: actionToPerform, player: 3 - this.state.getPlayer() });
+        const nextPlayer = this.state.getNextPlayer();
+        const newState = this.state.applyAction({ move: actionToPerform, player: nextPlayer });
         const newNode = this.addChildNodeFromState(newState);
         newNode.action = actionToPerform;
         return newNode;
@@ -79,7 +80,9 @@ export default class MCTSNode {
         while (!state.isEndOfGame()) {
             actions = state.getPossibleMoves();
             actionToApply = actions[Math.floor(Math.random() * actions.length)];
-            state = state.applyAction({ move: actionToApply, player: 3 - state.getPlayer() });
+
+            const nextPlayer = state.getNextPlayer();
+            state = state.applyAction({ move: actionToApply, player: nextPlayer });
         }
         return state.getStatus();
     }
