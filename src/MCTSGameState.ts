@@ -19,6 +19,9 @@ export default abstract class MCTSGameState {
     getPlayer(): number {
         return this.#player;
     }
+    setPlayer(player: number): void {
+        this.#player = player;
+    }
     abstract getPossibleMoves(): Array<Move>;
     abstract applyAction(action: Action): MCTSGameState;
     abstract getStatus(): any;

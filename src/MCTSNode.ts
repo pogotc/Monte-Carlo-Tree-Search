@@ -49,7 +49,6 @@ export default class MCTSNode {
         }
 
         const actionToPerform = this.actions[this.children.length];
-
         const newState = this.state.applyAction({ move: actionToPerform, player: 3 - this.state.getPlayer() });
         const newNode = this.addChildNodeFromState(newState);
         newNode.action = actionToPerform;
@@ -85,11 +84,15 @@ export default class MCTSNode {
         return state.getStatus();
     }
 
-    backpropagate(result: number): void {
+    backpropagate(result: any): void {
         this.visits++;
 
-        if (this.state.getPlayer() === result) {
-            this.wins++;
+        if (result !== 'DRAW') {
+            if (this.state.getPlayer() === result) {
+                this.wins++;
+            } else {
+                this.wins--;
+            }
         }
         if (this.parent !== null) {
             this.parent.backpropagate(result);
