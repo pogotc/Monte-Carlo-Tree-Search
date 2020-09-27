@@ -1,6 +1,6 @@
 {
   "name": "@pogotc/mcts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Monte Carlo Tree Search",
   "scripts": {
     "build": "tsc",
@@ -32,6 +32,8 @@
     "ts-jest": "^26.3.0",
     "typescript": "^4.0.2"
   },
+  "main": "dist/index.js",
+  "types": "dist/MCTS.d.ts",
   "dependencies": {},
   "repository": {
     "type": "git",
