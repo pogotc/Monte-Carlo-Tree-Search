@@ -40,9 +40,21 @@ export default class MCTSNode {
         return node;
     }
 
+    shuffle<T>(a: Array<T>): Array<T> {
+        let j, x, i;
+        for (i = a.length - 1; i > 0; i--) {
+            j = Math.floor(Math.random() * (i + 1));
+            x = a[i];
+            a[i] = a[j];
+            a[j] = x;
+        }
+        return a;
+    }
+
     expand(): MCTSNode {
         if (this.actions.length === 0) {
             this.actions = this.state.getPossibleMoves();
+            this.shuffle(this.actions);
         }
         if (this.isFullyExpanded()) {
             return null;
